@@ -230,3 +230,18 @@ plt.title('Visualização de cluster usando PCA com nomes de genótipos')
 plt.xlabel('PCA1')
 plt.ylabel('PCA2')
 plt.show()
+
+
+centroids = kmeans.cluster_centers_
+centroides_df = pd.DataFrame(centroides, columns=dados_numericos.columns)
+print("centroids dos clusters:")
+print(centroides_df)
+
+# Diferenças nos atributos entre os centroids
+centroides_differences = centroides_df.diff().abs()
+print("----------------------------------------------------------------------------")
+print("Diferenças entre os centroids:")
+print(centroides_differences)
+print("----------------------------------------------------------------------------")
+print("Maiores diferenças entre os centroids:")
+print(centroides_differences.max())
