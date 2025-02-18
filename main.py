@@ -125,3 +125,27 @@ plt.figure(figsize=(16,8))
 sns.boxplot(data=dados_numericos)
 plt.title("Boxplot Wine Genotype Classification antes do tratamento")
 plt.show()
+
+
+# checar tipos de dados
+wine_df.dtypes
+
+# Distribuição de Genótipos por ordem de frequência
+plt.figure(figsize=(15, 12))
+sns.countplot(y='Genotypes', data=wine_df, order=wine_df['Genotypes'].value_counts().index)
+plt.title('Distribution of Genotypes')
+plt.xlabel('Count')
+plt.ylabel('Genotypes')
+plt.show()
+
+
+# Mapa de correlação
+plt.figure(figsize=(12, 10))
+sns.heatmap(dados_numericos.corr(), annot=True, cmap='viridis', fmt='.2f')
+plt.title('Correlation Heatmap')
+plt.show()
+
+
+# padronização de dados
+ss=StandardScaler()
+data_scaled = ss.fit_transform(dados_numericos)
