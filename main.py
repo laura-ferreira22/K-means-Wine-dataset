@@ -184,3 +184,22 @@ data_scaled = scaler.fit_transform(wine_df.drop(columns=['Genotypes']))
 #Obter os rótulos dos clusters e os medoids
 kmeans = KMeans(n_clusters=3, random_state=42)
 kmeans.fit(data_scaled)
+
+# cópia do dataset e adicionando uma coluna cluster
+data1 = wine_df.copy()
+data1['Cluster'] = kmeans.labels_
+
+
+# Calculando as distâncias dos pontos ao medoid de seus clusters
+distances = pairwise_distances(data_scaled, kmeans.cluster_centers_)
+data1['Distance_to_center'] = distances[np.arange(len(distances)), data1['Cluster']]
+
+
+# Calculando a distância média por cluster (avaliando a coesão)
+mean_distances = data1.groupby('Cluster')['Distance_to_center'].mean()
+print("Mean distance from points to their kmeans cluster centers:")
+print(mean_distances)
+
+# Calculando a distância média geral
+overall_mean_distance = data1['Distance_to_center'].mean()
+print(f"Overall mean distance: {overall_mean_distance}")
