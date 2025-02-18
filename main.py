@@ -177,3 +177,10 @@ plt.xlabel("Número de clusters (k)")
 plt.ylabel("Soma dos quadrados dentr do cluster (wcss)")
 plt.grid(True)
 plt.show()
+
+scaler = StandardScaler()
+data_scaled = scaler.fit_transform(wine_df.drop(columns=['Genotypes']))
+
+#Obter os rótulos dos clusters e os medoids
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(data_scaled)
