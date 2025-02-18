@@ -65,3 +65,63 @@ for coluna in dados_numericos.columns:
     print(f"Mediana da coluna {coluna}: {dados_numericos[coluna].median()}")
     print(f"Moda da coluna {coluna}: {dados_numericos[coluna].mode()[0]}")
     print()
+
+
+# Teste de Normalidade (Shapiro-Wilk)
+for coluna in dados_numericos.columns:
+    stat, p = stats.shapiro(dados_numericos[coluna])
+    print(f"\nTeste de Normalidade (Shapiro-Wilk) {coluna}: ")
+    print(f"Estatística de teste {coluna}: {stat}, p-valor {p}")
+
+
+    # Interpretação do p-valor
+    # alfa grau de significância
+
+    alfa = 0.05
+
+    if p > alfa:
+      print('a distribuição é normal')
+    else:
+      print('a distribuição não é normal')
+
+
+
+# Teste de Normalidade (Shapiro-Wilk)
+for coluna in dados_numericos.columns:
+    stat, p = stats.shapiro(dados_numericos[coluna])
+    print(f"\nTeste de Normalidade (Shapiro-Wilk) {coluna}: ")
+    print(f"Estatística de teste {coluna}: {stat}, p-valor {p}")
+
+
+    # Interpretação do p-valor
+    # alfa grau de significância
+
+    alfa = 0.05
+
+    if p > alfa:
+      print('a distribuição é normal')
+    else:
+      print('a distribuição não é normal')
+
+
+
+# Gráfico de frequência
+for coluna in dados_numericos.columns:
+  plt.figure(figsize=(10,5))
+  sns.histplot(dados_numericos[coluna],bins = 30, kde = False)
+  plt.title(f'Gráfico de frequência da {coluna}')
+  plt.show()
+
+
+# Boxplot
+plt.figure(figsize=(16,8))
+sns.boxplot(data=dados_numericos)
+plt.title("Boxplot Wine Genotype Classification antes do tratamento")
+plt.show()
+
+
+# Boxplot
+plt.figure(figsize=(16,8))
+sns.boxplot(data=dados_numericos)
+plt.title("Boxplot Wine Genotype Classification antes do tratamento")
+plt.show()
