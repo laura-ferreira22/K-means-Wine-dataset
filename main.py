@@ -149,3 +149,31 @@ plt.show()
 # padronização de dados
 ss=StandardScaler()
 data_scaled = ss.fit_transform(dados_numericos)
+
+
+# Função para calcular WCSS
+
+def calcular_wcss(dados_numericos, k_max):
+  wcss=[]
+  for k in range (1, k_max+1):
+    kmeans = KMeans(n_clusters = k, random_state = 42)
+    kmeans.fit(dados_numericos)
+    wcss.append(kmeans.inertia_)
+  return wcss
+
+# Definir o número máximo de clusters para testar
+k_max = 10
+
+# Calcular WCSS para diferentes valores de k
+wcss = calcular_wcss(dados_numericos, k_max)
+print(wcss)
+
+
+# Identificar o número ideal de clusters pelo método Elbow
+plt.figure(figsize=(8,6))
+plt.plot(range(1, 11), wcss, marker ='o', linestyle = '--')
+plt.title("Método Elbow para determinar o número ideal de Clusters")
+plt.xlabel("Número de clusters (k)")
+plt.ylabel("Soma dos quadrados dentr do cluster (wcss)")
+plt.grid(True)
+plt.show()
