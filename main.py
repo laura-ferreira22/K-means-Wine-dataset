@@ -245,3 +245,8 @@ print(centroides_differences)
 print("----------------------------------------------------------------------------")
 print("Maiores diferenças entre os centroids:")
 print(centroides_differences.max())
+
+silhouette_coef = silhouette_score(data_scaled, labels)
+print(f'Coeficiente da silhueta : {silhouette_coef}')
+
+print(f'inércia : {kmeans.inertia_}')
