@@ -203,3 +203,30 @@ print(mean_distances)
 # Calculando a distância média geral
 overall_mean_distance = data1['Distance_to_center'].mean()
 print(f"Overall mean distance: {overall_mean_distance}")
+
+
+# Redução de dimensionalidade com PCA
+
+pca = PCA(n_components=2)
+pca_components = pca.fit_transform(data_scaled)
+
+data_pca = pd.DataFrame(pca_components, columns=['PCA1', 'PCA2'])
+
+data_pca['Cluster'] = data1['Cluster']
+data_pca['Genotypes'] = wine_df['Genotypes']
+# Visualização dos clusters no espaço PCA
+plt.figure(figsize=(12, 10))
+plt.scatter(data_pca['PCA1'], data_pca['PCA2'], c=data_pca['Cluster'], cmap='viridis', marker='o', s=50)
+# Adicionando os nomes dos genótipos ao gráfico
+annotated_genotypes = set()
+for i, genotype in enumerate(data_pca['Genotypes']):
+    if genotype not in annotated_genotypes:
+        plt.text(data_pca['PCA1'].iloc[i], data_pca['PCA2'].iloc[i], genotype,
+                 fontsize=9, ha='right', va='bottom', color='black')
+        annotated_genotypes.add(genotype)
+
+plt.colorbar(label='Cluster')
+plt.title('Visualização de cluster usando PCA com nomes de genótipos')
+plt.xlabel('PCA1')
+plt.ylabel('PCA2')
+plt.show()
